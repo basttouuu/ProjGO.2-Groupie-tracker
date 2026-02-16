@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/detail.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <article class="character-detail">
+            <div class="detail-header">
+                <div class="detail-image">
+                    <img src="{{.Spell.Image}}" alt="{{.Spell.Name}}" onerror="this.src='/static/img/no-image.png'">
+                </div>
+                <div class="detail-info">
+                    <h1>{{.Spell.Name}}</h1>
+                    {{if .Spell.Incantation}}<p class="aliases">Incantation: {{.Spell.Incantation}}</p>{{end}}
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <section class="info-card">
+                    <h2>Information</h2>
+                    <dl>
+                        {{if .Spell.Category}}<dt>Category:</dt><dd>{{.Spell.Category}}</dd>{{end}}
+                        {{if .Spell.Effect}}<dt>Effect:</dt><dd>{{.Spell.Effect}}</dd>{{end}}
+                        {{if .Spell.Light}}<dt>Light:</dt><dd>{{.Spell.Light}}</dd>{{end}}
+                        {{if .Spell.Hand}}<dt>Movement:</dt><dd>{{.Spell.Hand}}</dd>{{end}}
+                    </dl>
+                </section>
+
+                {{if .Spell.Creator}}
+                <section class="info-card">
+                    <h2>Creator</h2>
+                    <p>{{.Spell.Creator}}</p>
+                </section>
+                {{end}}
+            </div>
+
+            {{if .Spell.Wiki}}
+            <div class="wiki-link">
+                <a href="{{.Spell.Wiki}}" target="_blank" class="btn-wiki">View on Harry Potter Wiki</a>
+            </div>
+            {{end}}
+        </article>
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

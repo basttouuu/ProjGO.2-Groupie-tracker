@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | {{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/search.css">
+    <link rel="stylesheet" href="/static/css/favorites.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <section class="search-section">
+            <h2 class="search-title">Search for a character</h2>
+            <form action="/search" method="GET" class="search-form">
+                <div class="search-inputs">
+                    <input 
+                        type="text" 
+                        name="search" 
+                        placeholder="Character name..." 
+                        value="{{.Query}}"
+                        class="search-input"
+                    >
+
+                    <select name="house" class="filter-select">
+                        <option value="">All houses</option>
+                        <option value="Gryffindor" {{if eq .House "Gryffindor"}}selected{{end}}>Gryffindor</option>
+                        <option value="Slytherin" {{if eq .House "Slytherin"}}selected{{end}}>Slytherin</option>
+                        <option value="Ravenclaw" {{if eq .House "Ravenclaw"}}selected{{end}}>Ravenclaw</option>
+                        <option value="Hufflepuff" {{if eq .House "Hufflepuff"}}selected{{end}}>Hufflepuff</option>
+                    </select>
+
+                    <select name="status" class="filter-select">
+                        <option value="">All statuses</option>
+                        <option value="alive" {{if eq .Status "alive"}}selected{{end}}>Alive</option>
+                        <option value="deceased" {{if eq .Status "deceased"}}selected{{end}}>Deceased</option>
+                    </select>
+
+                    <select name="species" class="filter-select">
+                        <option value="">All species</option>
+                        <option value="Human" {{if eq .Species "Human"}}selected{{end}}>Human</option>
+                        <option value="Half-Giant" {{if eq .Species "Half-Giant"}}selected{{end}}>Half-Giant</option>
+                        <option value="Werewolf" {{if eq .Species "Werewolf"}}selected{{end}}>Werewolf</option>
+                        <option value="Ghost" {{if eq .Species "Ghost"}}selected{{end}}>Ghost</option>
+                        <option value="House-elf" {{if eq .Species "House-elf"}}selected{{end}}>House-elf</option>
+                    </select>
+                </div>
+                
+                <div class="search-actions">
+                    <button type="submit" class="search-btn">Search</button>
+                    <a href="/search" class="reset-btn">Reset</a>
+                </div>
+            </form>
+        </section>
+
+        {{if .Characters}}
+        <section class="results">
+            <h2 class="section-title">
+                {{if .Query}}
+                    Results for "{{.Query}}"
+                {{else if or .House .Species}}
+                    Filtered results
+                {{else}}
+                    All characters
+                {{end}}
+            </h2>
+            
+            <div class="characters-grid">
+                {{range $char := .Characters}}
+                {{$charID := $char.ID}}
+                {{$isFav := false}}
+                {{range $.Favorites}}
+                    {{if eq .ID $charID}}
+                        {{$isFav = true}}
+                    {{end}}
+                {{end}}
+                <div class="character-card-wrapper">
+                    <a href="/character/{{$char.ID}}" class="character-card">
+                        <div class="card-image">
+                            <img src="{{$char.Image}}" alt="{{$char.Name}}" loading="lazy" onerror="this.src='/static/img/no-image.png'">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{$char.Name}}</h3>
+                            {{if $char.House}}
+                            <span class="house-badge" data-house="{{$char.House}}">
+                                {{$char.House}}
+                            </span>
+                            {{end}}
+                            {{if $char.Species}}<p class="species">{{$char.Species}}</p>{{end}}
+                        </div>
+                    </a>
+                    {{if $isFav}}
+                        <form action="/favorites/remove" method="POST" class="favorite-form">
+                            <input type="hidden" name="id" value="{{$char.ID}}">
+                            <input type="hidden" name="return" value="/search?search={{$.Query}}&house={{$.House}}&species={{$.Species}}&status={{$.Status}}&page={{$.Page}}">
+                            <button type="submit" class="btn-add-favorite is-favorite" title="Retirer des favoris">Remove Favorite</button>
+                        </form>
+                    {{else}}
+                        <form action="/favorites/add" method="POST" class="favorite-form">
+                            <input type="hidden" name="id" value="{{$char.ID}}">
+                            <input type="hidden" name="name" value="{{$char.Name}}">
+                            <input type="hidden" name="image" value="{{$char.Image}}">
+                            <input type="hidden" name="house" value="{{$char.House}}">
+                            <input type="hidden" name="species" value="{{$char.Species}}">
+                            <input type="hidden" name="return" value="/search?search={{$.Query}}&house={{$.House}}&species={{$.Species}}&status={{$.Status}}&page={{$.Page}}">
+                            <button type="submit" class="btn-add-favorite" title="Ajouter aux favoris">Add Favorite</button>
+                        </form>
+                    {{end}}
+                </div>
+                {{end}}
+            </div>
+
+            {{if .Pagination}}
+            <div class="pagination">
+                {{if gt .Pagination.Current 1}}
+                <a href="/search?search={{.Query}}&house={{.House}}&species={{.Species}}&status={{.Status}}&page={{sub .Pagination.Current 1}}" class="page-btn">← Previous</a>
+                {{end}}
+                
+                <span class="page-current">Page {{.Pagination.Current}} / {{.Pagination.Last}}</span>
+                
+                {{if lt .Pagination.Current .Pagination.Last}}
+                <a href="/search?search={{.Query}}&house={{.House}}&species={{.Species}}&status={{.Status}}&page={{add .Pagination.Current 1}}" class="page-btn">Next →</a>
+                {{end}}
+            </div>
+            {{end}}
+        </section>
+        {{else}}
+        <div class="empty-state">
+            <div class="empty-icon">🔮</div>
+            <h3>No character found</h3>
+            <p>Try modifying your search criteria</p>
+            <a href="/search" class="btn-primary">New search</a>
+        </div>
+        {{end}}
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

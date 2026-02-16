@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/detail.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <article class="character-detail">
+            <div class="detail-header">
+                <div class="detail-image">
+                    <img src="{{.Book.Cover}}" alt="{{.Book.Title}}" onerror="this.src='/static/img/no-image.png'">
+                </div>
+                <div class="detail-info">
+                    <h1>{{.Book.Title}}</h1>
+                    {{if .Book.Author}}<p class="aliases">Author: {{.Book.Author}}</p>{{end}}
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <section class="info-card">
+                    <h2>- Information</h2>
+                    <dl>
+                        {{if .Book.Pages}}<dt>Pages:</dt><dd>{{.Book.Pages}}</dd>{{end}}
+                        {{if .Book.ReleaseDate}}<dt>Release date:</dt><dd>{{.Book.ReleaseDate}}</dd>{{end}}
+                    </dl>
+                </section>
+
+                {{if .Book.Summary}}
+                <section class="info-card">
+                    <h2>Summary</h2>
+                    <p>{{.Book.Summary}}</p>
+                </section>
+                {{end}}
+
+                {{if .Book.Dedication}}
+                <section class="info-card">
+                    <h2>Dedication</h2>
+                    <p>{{.Book.Dedication}}</p>
+                </section>
+                {{end}}
+            </div>
+
+            {{if .Book.Wiki}}
+            <div class="wiki-link">
+                <a href="{{.Book.Wiki}}" target="_blank" class="btn-wiki">View on Harry Potter Wiki</a>
+            </div>
+            {{end}}
+        </article>
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

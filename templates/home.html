@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/favorites.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <section class="hero-section">
+            <h2 class="hero-title">Welcome to the Magical Universe</h2>
+            <p class="hero-subtitle">"Words are, in my not-so-humble opinion, our most inexhaustible source of magic."</p>
+        </section>
+
+        {{if .Characters}}
+        <section class="results featured-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-regular fa-star section-icon"></i>Featured Characters</h2>
+                <a href="/search" class="view-all-link">Discover all characters <i class="fa-solid fa-arrow-right link-icon"></i></a>
+            </div>
+            
+            <div class="characters-grid">
+                {{range $char := .Characters}}
+                {{$charID := $char.ID}}
+                {{$isFav := false}}
+                {{range $.Favorites}}
+                    {{if eq .ID $charID}}
+                        {{$isFav = true}}
+                    {{end}}
+                {{end}}
+                <div class="character-card-wrapper">
+                    <a href="/character/{{$char.ID}}" class="character-card">
+                        <div class="card-shine"></div>
+                        <div class="card-image">
+                            <img src="{{$char.Image}}" alt="{{$char.Name}}" loading="lazy" onerror="this.src='/static/img/no-image.png'">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{$char.Name}}</h3>
+                            {{if $char.House}}
+                            <span class="house-badge" data-house="{{$char.House}}">
+                                {{$char.House}}
+                            </span>
+                            {{end}}
+                            {{if $char.Species}}<p class="species">{{$char.Species}}</p>{{end}}
+                        </div>
+                    </a>
+                    {{if $isFav}}
+                        <form action="/favorites/remove" method="POST" class="favorite-form">
+                            <input type="hidden" name="id" value="{{$char.ID}}">
+                            <input type="hidden" name="return" value="/">
+                            <button type="submit" class="btn-add-favorite is-favorite" title="Remove from favorites">Added</button>
+                        </form>
+                    {{else}}
+                        <form action="/favorites/add" method="POST" class="favorite-form">
+                            <input type="hidden" name="id" value="{{$char.ID}}">
+                            <input type="hidden" name="name" value="{{$char.Name}}">
+                            <input type="hidden" name="image" value="{{$char.Image}}">
+                            <input type="hidden" name="house" value="{{$char.House}}">
+                            <input type="hidden" name="species" value="{{$char.Species}}">
+                            <input type="hidden" name="return" value="/">
+                            <button type="submit" class="btn-add-favorite" title="Add to favorites">Favorite</button>
+                        </form>
+                    {{end}}
+                </div>
+                {{end}}
+            </div>
+        </section>
+        {{end}}
+    </main>
+
+    {{template "footer.html"}}
+</body>
+</html>

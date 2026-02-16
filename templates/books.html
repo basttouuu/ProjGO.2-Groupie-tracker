@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/books.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <section class="search-section">
+            <h2 class="search-title">Harry Potter Books</h2>
+            <form action="/books" method="GET" class="search-form">
+                <div class="search-inputs">
+                    <input type="text" name="search" placeholder="Search for a book..." value="{{.Query}}"class="search-input">
+                </div>
+                <div class="search-actions">
+                    <button type="submit" class="search-btn">Search</button>
+                    <a href="/books" class="reset-btn">Reset</a>
+                </div>
+            </form>
+        </section>
+
+        {{if .Books}}
+        <section class="results">
+            <h2 class="section-title">
+                {{if .Query}}
+                    Results for "{{.Query}}"
+                {{else}}
+                    All books
+                {{end}}
+                <span class="result-count">({{len .Books}} books)</span>
+            </h2>
+            
+            <div class="characters-grid">
+                {{range $book := .Books}}
+                <div class="character-card-wrapper">
+                    <a href="/book/{{$book.ID}}" class="character-card">
+                        <div class="card-shine"></div>
+                        <div class="card-image">
+                            <img src="{{$book.Cover}}" alt="{{$book.Title}}" loading="lazy" onerror="this.src='/static/img/no-image.png'">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{$book.Title}}</h3>
+                            {{if $book.Author}}
+                            <p class="species">{{$book.Author}}</p>
+                            {{end}}
+                            {{if $book.Pages}}
+                            <p class="species">{{$book.Pages}} pages</p>
+                            {{end}}
+                            {{if $book.ReleaseDate}}<p class="species">{{$book.ReleaseDate}}</p>
+                            {{end}}
+                        </div>
+                    </a>
+                </div>
+                {{end}}
+            </div>
+        </section>
+
+        {{if .Pagination}}
+        <nav class="pagination">
+            {{if gt .Pagination.Current 1}}
+                <a href="/books?search={{.Query}}&page={{sub .Pagination.Current 1}}" class="pagination-btn"><- Previous</a>
+            {{end}}
+            
+            <span class="pagination-info">Page {{.Pagination.Current}} of {{.Pagination.Last}}</span>
+            
+            {{if lt .Pagination.Current .Pagination.Last}}
+                <a href="/books?search={{.Query}}&page={{add .Pagination.Current 1}}" class="pagination-btn">Next -></a>
+            {{end}}
+        </nav>
+        {{end}}
+        {{else}}
+        <div class="no-results">
+            <p>No book found</p>
+        </div>
+        {{end}}
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

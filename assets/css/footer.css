@@ -1,0 +1,22 @@
+/* === FOOTER === */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    background: var(--bg-white);
+    color: #666;
+    font-size: 0.9rem;
+    border-top: 2px solid var(--border);
+}
+
+footer p {
+    margin: 5px 0;
+    color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+    footer {
+        padding: 30px 20px;
+        margin-top: 40px;
+    }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/detail.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <article class="character-detail">
+            <div class="detail-header">
+                <div class="detail-image">
+                    <img src="{{.Movie.Poster}}" alt="{{.Movie.Title}}" onerror="this.src='/static/img/no-image.png'">
+                </div>
+                <div class="detail-info">
+                    <h1>{{.Movie.Title}}</h1>
+                    {{if .Movie.ReleaseDate}}<p class="aliases">Release: {{.Movie.ReleaseDate}}</p>{{end}}
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <section class="info-card">
+                    <h2>Information</h2>
+                    <dl>
+                        {{if .Movie.RunningTime}}<dt>Duration:</dt><dd>{{.Movie.RunningTime}}</dd>{{end}}
+                        {{if .Movie.Budget}}<dt>Budget:</dt><dd>{{.Movie.Budget}}</dd>{{end}}
+                        {{if .Movie.BoxOffice}}<dt>Box Office:</dt><dd>{{.Movie.BoxOffice}}</dd>{{end}}
+                    </dl>
+                </section>
+
+                {{if .Movie.Directors}}
+                <section class="info-card">
+                    <h2>Directors</h2>
+                    <ul>
+                        {{range .Movie.Directors}}<li>{{.}}</li>{{end}}
+                    </ul>
+                </section>
+                {{end}}
+
+                {{if .Movie.Summary}}
+                <section class="info-card">
+                    <h2>Synopsis</h2>
+                    <p>{{.Movie.Summary}}</p>
+                </section>
+                {{end}}
+            </div>
+
+            {{if .Movie.Trailer}}
+            <div class="wiki-link">
+                <a href="{{.Movie.Trailer}}" target="_blank" class="btn-wiki">Watch the trailer</a>
+            </div>
+            {{end}}
+
+            {{if .Movie.Wiki}}
+            <div class="wiki-link">
+                <a href="{{.Movie.Wiki}}" target="_blank" class="btn-wiki">View on Harry Potter Wiki</a>
+            </div>
+            {{end}}
+        </article>
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

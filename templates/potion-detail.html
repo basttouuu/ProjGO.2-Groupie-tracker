@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/css/detail.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <article class="character-detail">
+            <div class="detail-header">
+                <div class="detail-image">
+                    <img src="{{.Potion.Image}}" alt="{{.Potion.Name}}" onerror="this.src='/static/img/no-image.png'">
+                </div>
+                <div class="detail-info">
+                    <h1>{{.Potion.Name}}</h1>
+                    {{if .Potion.Difficulty}}<p class="aliases">Difficulty: {{.Potion.Difficulty}}</p>{{end}}
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <section class="info-card">
+                    <h2>Information</h2>
+                    <dl>
+                        {{if .Potion.Effect}}<dt>Effect:</dt><dd>{{.Potion.Effect}}</dd>{{end}}
+                        {{if .Potion.Time}}<dt>Preparation time:</dt><dd>{{.Potion.Time}}</dd>{{end}}
+                        {{if .Potion.Characteristics}}<dt>Characteristics:</dt><dd>{{.Potion.Characteristics}}</dd>{{end}}
+                    </dl>
+                </section>
+
+                {{if .Potion.Ingredients}}
+                <section class="info-card">
+                    <h2>Ingredients</h2>
+                    <p>{{.Potion.Ingredients}}</p>
+                </section>
+                {{end}}
+
+                {{if or .Potion.Inventors .Potion.Manufacturers}}
+                <section class="info-card">
+                    <h2>Creators</h2>
+                    <dl>
+                        {{if .Potion.Inventors}}<dt>Inventors:</dt><dd>{{.Potion.Inventors}}</dd>{{end}}
+                        {{if .Potion.Manufacturers}}<dt>Manufacturers:</dt><dd>{{.Potion.Manufacturers}}</dd>{{end}}
+                    </dl>
+                </section>
+                {{end}}
+
+                {{if .Potion.SideEffects}}
+                <section class="info-card">
+                    <h2>Side effects</h2>
+                    <p>{{.Potion.SideEffects}}</p>
+                </section>
+                {{end}}
+            </div>
+
+            {{if .Potion.Wiki}}
+            <div class="wiki-link">
+                <a href="{{.Potion.Wiki}}" target="_blank" class="btn-wiki">View on Harry Potter Wiki</a>
+            </div>
+            {{end}}
+        </article>
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

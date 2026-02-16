@@ -1,0 +1,16 @@
+[
+  {
+    "id": "084f8e27-cf14-4a5d-a961-853e9b7e13b8",
+    "name": "Harry James Potter",
+    "image": "https://static.wikia.nocookie.net/harrypotter/images/c/ce/Harry_Potter_DHF1.jpg",
+    "house": "Gryffindor",
+    "species": "Human"
+  },
+  {
+    "id": "d5752a00-05ed-4087-ac6e-e76e3e23ac92",
+    "name": "Abel Treetops",
+    "image": "",
+    "house": "",
+    "species": "Human"
+  }
+]

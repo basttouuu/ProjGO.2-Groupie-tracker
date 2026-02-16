@@ -1,0 +1,368 @@
+/* --- PAGE DÉTAILS MAGIQUE --- */
+.detail-container,
+.character-detail {
+    background: var(--bg-white);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 50px;
+    margin: 40px 0;
+    box-shadow: 0 5px 20px var(--shadow);
+    position: relative;
+}
+
+.detail-container:hover,
+.character-detail:hover {
+    box-shadow: 0 8px 30px var(--shadow);
+    border-color: var(--primary);
+}
+
+.detail-header {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+.detail-image-wrapper,
+.detail-image {
+    flex: 0 0 340px;
+    position: relative;
+}
+
+.detail-image img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    background: var(--bg-light);
+    box-shadow: 0 5px 15px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.detail-image img:hover {
+    border-color: var(--primary);
+    box-shadow: 0 8px 25px var(--shadow);
+}
+
+.detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.detail-info h1 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--primary);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+}
+
+.aliases {
+    margin-bottom: 16px;
+}
+
+.aliases strong {
+    font-family: 'Cinzel Decorative', cursive;
+    color: var(--magic-gold);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.alias-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 0;
+}
+
+.alias-list li {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.alias-list li::before {
+    content: '✦ ';
+    color: var(--magic-gold);
+    margin-right: 8px;
+}
+
+.house-badge.large {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 25px;
+    background: rgba(155, 89, 182, 0.3);
+    color: var(--magic-gold);
+    border: 2px solid rgba(255, 215, 0, 0.4);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+    transition: all 0.3s ease;
+}
+
+.house-badge.large:hover {
+    background: rgba(155, 89, 182, 0.5);
+    border-color: var(--magic-gold);
+    box-shadow: 0 6px 20px rgba(155, 89, 182, 0.5);
+    transform: scale(1.05);
+}
+
+.detail-favorite {
+    position: static;
+}
+
+/* Favorite Button */
+.btn-add-favorite {
+    padding: 0.8rem 1.5rem;
+    background: var(--bg-white);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    color: var(--primary);
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.btn-add-favorite:hover {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 10px var(--shadow);
+    transform: translateY(-2px);
+}
+
+.btn-add-favorite.is-favorite {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: #fff;
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.btn-add-favorite.is-favorite:hover {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #fff;
+    box-shadow: 0 4px 10px var(--shadow);
+    transform: translateY(-2px);
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.info-card {
+    background: var(--bg-white);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 28px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.info-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 5px 20px var(--shadow);
+    transform: translateY(-3px);
+}
+
+.info-card h2 {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 22px;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.info-card dl {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-card dt {
+    font-weight: 700;
+    color: var(--secondary);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-card dd {
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    padding-left: 0;
+}
+
+.info-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-card ul li {
+    padding: 8px 12px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+}
+
+.info-card ul li::before {
+    content: '✦ ';
+    color: var(--secondary);
+    margin-right: 8px;
+}
+
+.wiki-link {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-wiki {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Cinzel Decorative', cursive;
+    background: var(--primary);
+    color: white;
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.btn-wiki:hover {
+    background: #2980b9;
+    box-shadow: 0 4px 15px var(--shadow);
+    transform: translateY(-3px);
+}
+
+.detail-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--primary);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+}
+
+.detail-section {
+    margin-top: 50px;
+    padding-top: 50px;
+    border-top: 2px solid var(--border);
+}
+
+.section-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--primary);
+    letter-spacing: 1px;
+}
+
+.section-content {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+.detail-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.detail-list-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 16px;
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.detail-list-item:hover {
+    background: var(--bg-white);
+    border-color: var(--primary);
+    transform: translateX(8px);
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.detail-list-item::before {
+    content: '✦';
+    color: var(--secondary);
+    font-size: 18px;
+}
+
+@media (max-width: 1024px) {
+    .detail-container,
+    .character-detail {
+        padding: 40px;
+    }
+    
+    .detail-header {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .detail-image-wrapper,
+    .detail-image {
+        flex: none;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+    
+    .detail-title,
+    .detail-info h1 {
+        font-size: 40px;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .detail-container,
+    .character-detail {
+        padding: 28px;
+    }
+    
+    .detail-title,
+    .detail-info h1 {
+        font-size: 32px;
+    }
+    
+    .detail-section {
+        margin-top: 40px;
+        padding-top: 40px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+    
+    .section-content {
+        font-size: 16px;
+    }
+}

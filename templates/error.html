@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.StatusCode}} - Error | Harry Potter Wiki</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/error.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <div class="error-container">
+            <div class="error-icon">
+                {{if eq .StatusCode 404}}
+                {{else if eq .StatusCode 500}}
+                {{else if eq .StatusCode 400}}
+                {{else}}
+                {{end}}
+            </div>
+            
+            <h1 class="error-code">{{.StatusCode}}</h1>
+            
+            <h2 class="error-title">
+                {{if eq .StatusCode 404}}Spell Failed!
+                {{else if eq .StatusCode 500}}Uncontrollable Magic!
+                {{else if eq .StatusCode 400}}Incorrect Formula!
+                {{else}}Spell Backfired!
+                {{end}}
+            </h2>
+            
+            <p class="error-message">
+                {{if .Message}}
+                    {{.Message}}
+                {{else}}
+                    {{if eq .StatusCode 404}}
+                        The character or page you're looking for seems to have disappeared into the Room of Requirement...
+                    {{else if eq .StatusCode 500}}
+                        A spell went wrong! Our wizards are working to repair the damage.
+                    {{else if eq .StatusCode 400}}
+                        The magic formula used is not correct. Check your incantation.
+                    {{else}}
+                        Something unexpected happened in the magical world.
+                    {{end}}
+                {{end}}
+            </p>
+            
+            <div class="error-actions">
+                <a href="/" class="btn-error btn-primary">Return to Hogwarts</a>
+                <a href="javascript:history.back()" class="btn-error btn-secondary"><- Previous page</a>
+            </div>
+            
+            {{if .ErrorDetails}}
+            <div class="error-details">
+                <pre>{{.ErrorDetails}}</pre>
+            </div>
+            {{end}}
+        </div>
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

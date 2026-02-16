@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/books.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <section class="search-section">
+            <h2 class="search-title">Spells and Charms</h2>
+            <form action="/spells" method="GET" class="search-form">
+                <div class="search-inputs">
+                    <input 
+                        type="text" 
+                        name="search" 
+                        placeholder="Search for a spell..." 
+                        value="{{.Query}}"
+                        class="search-input"
+                    >
+                </div>
+                <div class="search-actions">
+                    <button type="submit" class="search-btn">Search</button>
+                    <a href="/spells" class="reset-btn">Reset</a>
+                </div>
+            </form>
+        </section>
+
+        {{if .Spells}}
+        <section class="results">
+            <h2 class="section-title">
+                {{if .Query}}
+                    Results for "{{.Query}}"
+                {{else}}
+                    All spells
+                {{end}}
+                <span class="result-count">({{len .Spells}} spells)</span>
+            </h2>
+            
+            <div class="characters-grid">
+                {{range $spell := .Spells}}
+                <div class="character-card-wrapper">
+                    <a href="/spell/{{$spell.ID}}" class="character-card">
+                        <div class="card-shine"></div>
+                        <div class="card-image">
+                            <img src="{{$spell.Image}}" alt="{{$spell.Name}}" loading="lazy" onerror="this.src='/static/img/no-image.png'">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{$spell.Name}}</h3>
+                            {{if $spell.Incantation}}<p class="species">{{$spell.Incantation}}</p>{{end}}
+                            {{if $spell.Category}}<p class="species">{{$spell.Category}}</p>{{end}}
+                        </div>
+                    </a>
+                </div>
+                {{end}}
+            </div>
+        </section>
+
+        {{if .Pagination}}
+        <nav class="pagination">
+            {{if gt .Pagination.Current 1}}
+                <a href="/spells?search={{.Query}}&page={{sub .Pagination.Current 1}}" class="pagination-btn"><- Previous</a>
+            {{end}}
+            
+            <span class="pagination-info">Page {{.Pagination.Current}} of {{.Pagination.Last}}</span>
+            
+            {{if lt .Pagination.Current .Pagination.Last}}
+                <a href="/spells?search={{.Query}}&page={{add .Pagination.Current 1}}" class="pagination-btn">Next -></a>
+            {{end}}
+        </nav>
+        {{end}}
+        {{else}}
+        <div class="no-results">
+            <p>No spell found</p>
+        </div>
+        {{end}}
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

@@ -1,226 +1,109 @@
-# 🧙 Harry Potter Wiki API
+# Groupie Tracker - Potter DB
+Un site web en Go qui utilise l'API Potter DB pour explorer l'univers Harry Potter : personnages, livres, films, sorts et potions. Le but de ce projet est de s'entraîner à utiliser les API et à créer des sites web en Go. De plus, il permet de découvrir l'univers magique aux utilisateurs.
 
-Application web en Go permettant d'explorer l'univers de Harry Potter avec une interface de recherche de personnages.
+## Fonctionnalités
+**Personnages** — Afficher des personnages aléatoires sur la page d'accueil  
+**Recherche avancée** — Filtrer par nom, maison, espèce et statut (vivant/décédé)  
+**Fiche détaillée** — Afficher les détails complets d'un personnage  
+**Catalogue de contenu** — Parcourir les livres, films, sorts et potions  
+**Pagination** — Navigation par pages avec conservation des filtres  
+**Favoris** — Ajouter/supprimer des personnages en favoris  
+**Page d'erreur stylisée** — Page d'erreur personnalisée avec codes HTTP  
 
-## 📋 Fonctionnalités
+## Technologies Utilisées
+**Go** — Serveur backend (v1.25.0)  
+**HTML/CSS** — Templates et mise en page  
+**API Potter DB** — Source de données de l'univers Harry Potter  
+**JSON** — Stockage local des favoris  
 
-- ✅ Recherche de personnages par nom
-- ✅ Filtrage par maison (Gryffondor, Serpentard, Serdaigle, Poufsouffle)
-- ✅ Filtrage par espèce (Humain, Demi-Géant, Loup-garou, etc.)
-- ✅ Pagination des résultats
-- ✅ Page de détails pour chaque personnage
-- ✅ Gestion des erreurs (400, 404, 500)
-- ✅ Design responsive
-- ✅ Tests unitaires
-
-## 🚀 Technologies utilisées
-
-- **Go 1.25.0** - Langage de programmation
-- **net/http** - Serveur HTTP natif
-- **html/template** - Moteur de templates
-- **Potter DB API** - Source des données
-
-## 📁 Structure du projet
-
+## Structure du projet
 ```
 API_HP/
-├── assets/              # Fichiers statiques
-│   ├── css/
-│   │   └── style.css    # Styles CSS
-│   └── img/             # Images
 ├── src/
-│   ├── cmd/
-│   │   └── main.go      # Point d'entrée de l'application
-│   ├── controllers/     # Contrôleurs HTTP
-│   │   ├── characters.controller.go
-│   │   ├── errors.controller.go
-│   │   ├── suggestions.controller.go
-│   │   └── *_test.go    # Tests unitaires
-│   ├── helpers/         # Fonctions utilitaires
-│   │   ├── errors.helper.go
-│   │   └── *_test.go
-│   ├── middlewares/     # Middlewares HTTP
-│   │   └── errors.middleware.go
-│   ├── models/          # Structures de données
-│   │   ├── characters.model.go
-│   │   └── errors.model.go
-│   ├── routers/         # Configuration des routes
-│   │   ├── main.router.go
-│   │   ├── characters.router.go
-│   │   └── errors.router.go
-│   ├── services/        # Logique métier et appels API
-│   │   ├── characters.service.go
-│   │   └── *_test.go
-│   └── templates/       # Gestion des templates
-│       └── templates.go
-├── templates/           # Templates HTML
-│   ├── home.html        # Page d'accueil
-│   ├── detail.html      # Page de détails
-│   ├── error.html       # Page d'erreur générique
-│   ├── 404.html         # Page 404
-│   ├── 400.html         # Page 400
-│   └── 500.html         # Page 500
-├── go.mod               # Dépendances Go
-└── README.md            # Ce fichier
+│   ├── cmd/main.go           
+│   ├── controllers/           
+│   ├── models/                
+│   ├── routers/               
+│   ├── services/              
+│   ├── helpers/               
+│   └── templates/             
+├── templates/                 
+├── assets/
+│   ├── css/                   
+│   └── img/                   
+├── favorites.json             
+└── go.mod                     
 ```
 
-## 🛠️ Installation
+## Lancement
 
 ### Prérequis
+- Go installé (v1.25.0 ou supérieur)
+- Connexion internet (pour l'API Potter DB)
 
-- Go 1.25.0 ou supérieur
-- Connexion internet (pour accéder à l'API Potter DB)
-
-### Étapes d'installation
-
-1. **Cloner le projet**
+### Installation et exécution
 ```bash
-git clone <votre-repo>
+# Cloner le projet
+git clone <url-du-repo>
 cd API_HP
-```
 
-2. **Vérifier l'installation de Go**
-```bash
-go version
-```
-
-3. **Initialiser les dépendances**
-```bash
-go mod tidy
-```
-
-## 🎯 Utilisation
-
-### Lancer le serveur
-
-Depuis la racine du projet (`API_HP/`), exécutez :
-
-```bash
-go run ./src/cmd
+# Lancer le serveur
+cd src/cmd
+go run main.go
 ```
 
 Le serveur démarre sur **http://localhost:8080**
 
-### Accéder à l'application
+## Pages disponibles
 
-Ouvrez votre navigateur et accédez à :
-- **Page d'accueil** : http://localhost:8080
-- **Recherche** : http://localhost:8080/?search=Harry
-- **Filtres** : http://localhost:8080/?house=Gryffindor&species=Human
-- **Détail personnage** : http://localhost:8080/character/[id]
+| Route | Description |
+|-------|-------------|
+| `/` | Page d'accueil |
+| `/search` | Recherche de personnages |
+| `/character/{id}` | Détails d'un personnage |
+| `/favorites` | Page des favoris |
+| `/favorites/add` | Ajouter aux favoris (POST) |
+| `/favorites/remove` | Retirer des favoris (POST) |
+| `/books` | Catalogue des livres |
+| `/book/{id}` | Détails d'un livre |
+| `/movies` | Catalogue des films |
+| `/movie/{id}` | Détails d'un film |
+| `/spells` | Catalogue des sorts |
+| `/spell/{id}` | Détails d'un sort |
+| `/potions` | Catalogue des potions |
+| `/potion/{id}` | Détails d'une potion |
+| `/about` | Page À propos |
+| `/error` | Page d'erreur |
 
-### Exemples d'utilisation
+## Mon Avis
 
-**Rechercher "Harry"**
-```
-GET http://localhost:8080/?search=Harry
-```
+### Ce que j'ai appris
+Franchement, ce projet m'a bien aidé à comprendre **Go**. Au début, j'étais un peu perdu avec la syntaxe, mais finalement c'est assez simple et direct. Ce qui est cool, c'est qu'on peut faire un serveur web complet juste avec la lib standard, sans installer 50 packages comme en Node.js.
 
-**Filtrer par maison Gryffondor**
-```
-GET http://localhost:8080/?house=Gryffindor
-```
+Bosser avec l'**API Potter DB** m'a appris à gérer les appels REST et parser du JSON. Le système de favoris m'a fait découvrir comment sauvegarder des données localement et gérer la concurrence avec les mutex (pour pas que tout plante si plusieurs personnes ajoutent des favoris en même temps).
 
-**Combiner recherche et filtres**
-```
-GET http://localhost:8080/?search=Hermione&house=Gryffindor&species=Human
-```
+### Les galères
+La partie la plus chiante a été la **gestion des filtres** dans la recherche. Fallait construire l'URL de l'API dynamiquement selon les filtres actifs, tout en gardant la pagination. J'ai refait mon code genre 3 fois avant que ça marche bien.
 
-## 🧪 Tests
+Aussi, le **CSS responsive** c'était un peu relou. J'ai commencé avec un thème dark super chargé en animations, mais au final j'ai tout simplifié pour avoir quelque chose de propre et lisible. Parfois, less is more.
 
-### Exécuter tous les tests
+### Ce qui m'a plu
+Go, c'est vraiment rapide et les messages d'erreur sont clairs (pas comme Python qui te sort des traceback de 50 lignes 😅). Le fait de coder **tout de A à Z** (back, front, routing, API) m'a donné une vraie vision d'ensemble du dev web.
 
-```bash
-go test ./src/... -v
-```
+Et puis bon, faire un site sur Harry Potter, c'est quand même plus motivant que "Gestionnaire de To-Do liste n°476" 🧙‍♂️
 
-### Exécuter les tests d'un package spécifique
+### Si je devais continuer
+- Mettre une vraie BDD (PostgreSQL) au lieu du JSON
+- Ajouter un système de comptes utilisateurs
+- Un cache Redis pour que ce soit plus rapide
+- Faire des tests (j'avoue, j'en ai pas fait...)
+- Rendre le site utilisable hors-ligne (PWA)
 
-```bash
-go test ./src/controllers -v
-go test ./src/services -v
-go test ./src/helpers -v
-```
+### Conclusion
+Ce projet m'a bien fait progresser en dev web. Go c'est un langage que je vais sûrement réutiliser, et l'univers Harry Potter rendait le tout plus sympa à développer !
 
-### Couverture de tests
 
-```bash
-go test ./src/... -cover
-```
 
-## 🏗️ Architecture
+## Auteur
+**Hugo P.** — Ynov B1 Informatique 2025-2026
 
-### Pattern MVC
-
-Le projet suit une architecture inspirée du pattern MVC :
-
-- **Models** : Structures de données (personnages, pagination, erreurs)
-- **Controllers** : Handlers HTTP gérant les requêtes
-- **Services** : Logique métier et communication avec l'API externe
-- **Routers** : Configuration des routes
-- **Helpers** : Fonctions utilitaires réutilisables
-- **Middlewares** : Gestion des erreurs HTTP
-- **Templates** : Vues HTML
-
-### Flux de données
-
-```
-Client → Router → Controller → Service → API Potter DB
-                      ↓
-                   Template
-                      ↓
-                   Client
-```
-
-## 🎨 Personnalisation
-
-### Modifier le CSS
-
-Les styles se trouvent dans `assets/css/style.css`
-
-### Modifier les templates
-
-Les templates HTML sont dans le dossier `templates/`
-
-### Ajouter de nouveaux filtres
-
-1. Modifier `characters.controller.go` pour récupérer le paramètre
-2. Modifier `characters.service.go` pour construire l'URL de l'API
-3. Modifier `home.html` pour ajouter le filtre dans le formulaire
-
-## 🐛 Gestion des erreurs
-
-L'application gère les erreurs HTTP suivantes :
-
-- **400 Bad Request** : Paramètres invalides
-- **404 Not Found** : Page ou ressource introuvable
-- **500 Internal Server Error** : Erreur serveur ou API
-
-Chaque erreur affiche une page dédiée avec un message explicatif.
-
-## 📚 API utilisée
-
-**Potter DB API** : https://api.potterdb.com/v1
-
-Endpoints utilisés :
-- `GET /characters` - Liste des personnages
-- `GET /characters/{id}` - Détails d'un personnage
-
-## 🤝 Contribution
-
-Ce projet est un projet pédagogique. Pour contribuer :
-
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/AmazingFeature`)
-3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrir une Pull Request
-
-## 📝 Auteur
-
-Projet réalisé dans le cadre du cours Ynov 2025-2026
-
-## 📄 Licence
-
-Ce projet est à des fins éducatives uniquement.
-# ProjGO.2-Groupie-tracker

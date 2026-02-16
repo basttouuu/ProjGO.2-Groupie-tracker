@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/favorites.css">
+    <link rel="stylesheet" href="/static/css/detail.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <article class="character-detail">
+            <div class="detail-header">
+                <div class="detail-image">
+                    <img src="{{.Character.Image}}" alt="{{.Character.Name}}" onerror="this.src='/static/img/no-image.png'">
+                </div>
+                <div class="detail-info">
+                    <h1>{{.Character.Name}}</h1>
+                    
+                    {{if .Character.AliasNames}}
+                    <div class="aliases">
+                        <strong>Alias:</strong>
+                        <ul class="alias-list">
+                            {{range .Character.AliasNames}}
+                            <li>{{.}}</li>
+                            {{end}}
+                        </ul>
+                    </div>
+                    {{end}}
+                    
+                    {{if .Character.House}}
+                    <span class="house-badge large" data-house="{{.Character.House}}">
+                        {{.Character.House}}
+                    </span>
+                    {{end}}
+
+                    {{$charID := .Character.ID}}
+                    {{$isFav := false}}
+                    {{range .Favorites}}
+                        {{if eq .ID $charID}}
+                            {{$isFav = true}}
+                        {{end}}
+                    {{end}}
+                    {{if $isFav}}
+                        <form action="/favorites/remove" method="POST" class="favorite-form detail-favorite">
+                            <input type="hidden" name="id" value="{{.Character.ID}}">
+                            <input type="hidden" name="return" value="/character/{{.Character.ID}}">
+                            <button type="submit" class="btn-add-favorite is-favorite" title="Remove from favorites">Added to favorites</button>
+                        </form>
+                    {{else}}
+                        <form action="/favorites/add" method="POST" class="favorite-form detail-favorite">
+                            <input type="hidden" name="id" value="{{.Character.ID}}">
+                            <input type="hidden" name="name" value="{{.Character.Name}}">
+                            <input type="hidden" name="image" value="{{.Character.Image}}">
+                            <input type="hidden" name="house" value="{{.Character.House}}">
+                            <input type="hidden" name="species" value="{{.Character.Species}}">
+                            <input type="hidden" name="return" value="/character/{{.Character.ID}}">
+                            <button type="submit" class="btn-add-favorite" title="Add to favorites">Add to favorites</button>
+                        </form>
+                    {{end}}
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <section class="info-card">
+                    <h2>Information</h2>
+                    <dl>
+                        {{if .Character.Species}}<dt>Species:</dt><dd>{{.Character.Species}}</dd>{{end}}
+                        {{if .Character.Gender}}<dt>Gender:</dt><dd>{{.Character.Gender}}</dd>{{end}}
+                        {{if .Character.Born}}<dt>Birth:</dt><dd>{{.Character.Born}}</dd>{{end}}
+                        {{if .Character.Died}}<dt>Death:</dt><dd>{{.Character.Died}}</dd>{{else}}<dt>Status:</dt><dd>Alive</dd>{{end}}
+                    </dl>
+                </section>
+
+                {{if or .Character.Patronus .Character.Wands}}
+                <section class="info-card">
+                    <h2>Magic</h2>
+                    <dl>
+                        {{if .Character.Patronus}}<dt>Patronus:</dt><dd>{{.Character.Patronus}}</dd>{{end}}
+                        {{if .Character.Wands}}
+                        <dt>Wands:</dt>
+                        <dd>
+                            <ul>
+                                {{range .Character.Wands}}<li>{{.}}</li>{{end}}
+                            </ul>
+                        </dd>
+                        {{end}}
+                    </dl>
+                </section>
+                {{end}}
+            </div>
+
+            {{if .Character.Wiki}}
+            <div class="wiki-link">
+                <a href="{{.Character.Wiki}}" target="_blank" class="btn-wiki">View on Harry Potter Wiki</a>
+            </div>
+            {{end}}
+        </article>
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites | {{.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <link rel="stylesheet" href="/static/css/favorites.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+<body>    
+    {{template "header.html" .}}
+
+    <main class="container">
+        <section class="hero-section">
+            <h2 class="hero-title">My Favorites</h2>
+            <p class="hero-subtitle">Find all your favorite characters</p>
+        </section>
+
+        {{if .Characters}}
+        <section class="results">
+            <h2 class="section-title">
+                Mes personnages favoris
+                <span class="result-count">({{len .Characters}} character{{if gt (len .Characters) 1}}s{{end}})</span>
+            </h2>
+            
+            <div class="characters-grid">
+                {{range .Characters}}
+                <div class="character-card-wrapper">
+                    <a href="/character/{{.ID}}" class="character-card">
+                        <div class="card-image">
+                            <img src="{{.Image}}" alt="{{.Name}}" loading="lazy" onerror="this.src='/static/img/no-image.png'">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{.Name}}</h3>
+                            {{if .House}}
+                            <span class="house-badge" data-house="{{.House}}">
+                                {{.House}}
+                            </span>
+                            {{end}}
+                            {{if .Species}}<p class="species">{{.Species}}</p>{{end}}
+                        </div>
+                    </a>
+                    <form action="/favorites/remove" method="POST" class="favorite-form">
+                        <input type="hidden" name="id" value="{{.ID}}">
+                        <input type="hidden" name="return" value="/favorites">
+                        <button type="submit" class="btn-remove-favorite" title="Remove from favorites">Remove</button>
+                    </form>
+                </div>
+                {{end}}
+            </div>
+        </section>
+        {{else}}
+        <div class="empty-state">
+            <h3>No favorites yet</h3>
+            <p>Add your favorite characters from the search or home page</p>
+            <a href="/search" class="btn-primary">Discover characters</a>
+        </div>
+        {{end}}
+    </main>
+
+    {{template "footer.html" .}}
+</body>
+</html>
