@@ -204,7 +204,7 @@
 /* Image couverture de livre */
 .card-image {
     width: 100%;
-    height: 320px;
+    aspect-ratio: 3/4;
     object-fit: cover;
     border-bottom: 2px solid var(--border);
     transition: transform 0.4s ease;
@@ -221,6 +221,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    min-height: 180px;
 }
 
 .card-title {
@@ -325,10 +326,6 @@
     .characters-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 1.5rem;
-    }
-
-    .card-image {
-        height: 280px;
     }
 
     .section-title {

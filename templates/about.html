@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Title}}</title>
+    <title>À Propos - Grimoire des APIs</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="/static/css/about.css">
@@ -17,9 +17,9 @@
         <section class="about-hero">
             <h1 class="about-title">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
-                About
+                À Propos
             </h1>
-            <p class="about-subtitle">Groupie Tracker - Harry Potter Edition</p>
+            <p class="about-subtitle">Groupie Tracker - Édition Harry Potter</p>
         </section>
 
         <section class="about-section">
@@ -27,31 +27,31 @@
                 <div class="card-icon">
                     <i class="fa-solid fa-book-open"></i>
                 </div>
-                <h2 class="section-heading">Project Presentation</h2>
+                <h2 class="section-heading">Présentation du Projet</h2>
                 <p class="section-text">
-                    Welcome to the <strong>Harry Potter Groupie Tracker</strong>, a web application that brings the magical 
-                    universe of Harry Potter to life through an interactive and user-friendly interface. This project was 
-                    developed as part of the <strong>Groupie Tracker</strong> assignment at Ynov Campus, demonstrating 
-                    mastery of Go web development, REST API consumption, and clean architecture design.
+                    Bienvenue sur le <strong>Harry Potter Groupie Tracker</strong>, une application web qui donne vie à l'univers 
+                    magique d'Harry Potter à travers une interface interactive et conviviale. Ce projet a été 
+                    développé dans le cadre du projet <strong>Groupie Tracker</strong> à Ynov Campus, démontrant 
+                    la maîtrise du développement web en Go, de la consommation d'API REST et d'une architecture propre.
                 </p>
                 <p class="section-text">
-                    The application allows users to explore over 600 characters, browse the complete collection of books and 
-                    movies, discover hundreds of spells and potions, and manage their favorite characters. Built entirely 
-                    with Go's standard library and vanilla HTML/CSS, this project showcases how powerful native tools can be 
-                    when properly utilized.
+                    L'application permet aux utilisateurs d'explorer plus de 600 personnages, de parcourir la collection complète de livres et 
+                    de films, de découvrir des centaines de sorts et de potions, et de gérer leurs personnages favoris. Construite entièrement 
+                    avec la bibliothèque standard de Go et du HTML/CSS vanilla, ce projet montre à quel point les outils natifs peuvent être puissants 
+                    lorsqu'ils sont correctement utilisés.
                 </p>
             </div>
         </section>
 
         <section class="about-section">
             <div class="section-card">
-                <h2 class="section-heading">Technical Overview</h2>
+                <h2 class="section-heading">Aperçu Technique</h2>
                 <p class="section-text">
-                    Web app built with <strong>Go</strong> using <strong>Potter DB API</strong>. 
-                    Features: character search, filters, favorites, pagination, catalogs for books/movies/spells/potions.
+                    Application web construite avec <strong>Go</strong> utilisant l'<strong>API Potter DB</strong>. 
+                    Fonctionnalités : recherche de personnages, filtres, favoris, pagination, catalogues pour livres/films/sorts/potions.
                 </p>
                 <p class="section-text">
-                    <strong>Tech stack:</strong> Go (standard library only), HTML, CSS. No frameworks, no external dependencies.
+                    <strong>Stack technique :</strong> Go (bibliothèque standard uniquement), HTML, CSS. Aucun framework, aucune dépendance externe.
                 </p>
             </div>
         </section>
@@ -62,19 +62,19 @@
                 <pre><code>git clone &lt;repo-url&gt;
 cd API_HP/src/cmd
 go run main.go</code></pre>
-                <p class="section-text">Access: <strong>http://localhost:8080</strong></p>
+                <p class="section-text">Accès : <strong>http://localhost:8080</strong></p>
             </div>
         </section>
 
         <section class="about-section">
             <div class="section-card">
-                <h2 class="section-heading">Main Routes</h2>
+                <h2 class="section-heading">Routes Principales</h2>
                 <ul class="tech-list">
-                    <li><code>/</code> - Home</li>
-                    <li><code>/search</code> - Search with filters</li>
-                    <li><code>/character/{id}</code> - Character details</li>
-                    <li><code>/favorites</code> - Favorites list</li>
-                    <li><code>/books</code>, <code>/movies</code>, <code>/spells</code>, <code>/potions</code> - Catalogs</li>
+                    <li><code>/</code> - Accueil</li>
+                    <li><code>/search</code> - Recherche avec filtres</li>
+                    <li><code>/character/{id}</code> - Détails du personnage</li>
+                    <li><code>/favorites</code> - Liste des favoris</li>
+                    <li><code>/books</code>, <code>/movies</code>, <code>/spells</code>, <code>/potions</code> - Catalogues</li>
                 </ul>
             </div>
         </section>
@@ -86,7 +86,7 @@ go run main.go</code></pre>
                     <strong>Potter DB v1:</strong> <code>https://api.potterdb.com/v1</code>
                 </p>
                 <p class="section-text">
-                    <strong>Endpoints used:</strong> /characters, /books, /movies, /spells, /potions
+                    <strong>Endpoints utilisés :</strong> /characters, /books, /movies, /spells, /potions
                 </p>
             </div>
         </section>
@@ -97,30 +97,30 @@ go run main.go</code></pre>
                 
                 <div class="faq-container">
                     <details class="faq-item" open>
-                        <summary><strong>How was the project decomposed?</strong></summary>
+                        <summary><strong>Comment le projet a-t-il été décomposé ?</strong></summary>
                         <div class="faq-content">
-                            <p>6 phases: Analysis & Design → Backend → Core Features → Advanced Features → Error Handling → Design & Docs</p>
+                            <p>6 phases : Analyse & Design → Backend → Fonctionnalités de base → Fonctionnalités avancées → Gestion des erreurs → Design & Documentation</p>
                         </div>
                     </details>
 
                     <details class="faq-item">
-                        <summary><strong>Task distribution?</strong></summary>
+                        <summary><strong>Répartition des tâches ?</strong></summary>
                         <div class="faq-content">
-                            <p>Solo project: 40% backend, 35% frontend, 15% debugging, 10% documentation</p>
+                            <p>Projet solo : 40% backend, 35% frontend, 15% débogage, 10% documentation</p>
                         </div>
                     </details>
 
                     <details class="faq-item">
-                        <summary><strong>Time management?</strong></summary>
+                        <summary><strong>Gestion du temps ?</strong></summary>
                         <div class="faq-content">
-                            <p>~80-100 hours over 4 weeks. MVP first, then bonus features.</p>
+                            <p>~80-100 heures sur 4 semaines. MVP d'abord, puis fonctionnalités bonus.</p>
                         </div>
                     </details>
 
                     <details class="faq-item">
-                        <summary><strong>Documentation strategy?</strong></summary>
+                        <summary><strong>Stratégie de documentation ?</strong></summary>
                         <div class="faq-content">
-                            <p>Official Go docs, Potter DB documentation, MDN Web Docs, CSS-Tricks</p>
+                            <p>Documentation officielle Go, documentation Potter DB, MDN Web Docs, CSS-Tricks</p>
                         </div>
                     </details>
                 </div>
@@ -129,11 +129,11 @@ go run main.go</code></pre>
 
         <section class="about-section">
             <div class="section-card">
-                <h2 class="section-heading">Credits</h2>
+                <h2 class="section-heading">Crédits</h2>
                 <p class="section-text">
-                    <strong>Author:</strong> Hugo Paulier (Ynov B1)<br>
-                    <strong>API:</strong> <a href="https://potterdb.com" target="_blank">Potter DB</a><br>
-                    <strong>Universe:</strong> © J.K. Rowling & Warner Bros.
+                    <strong>Auteur :</strong> Hugo Paulier (Ynov B1)<br>
+                    <strong>API :</strong> <a href="https://potterdb.com" target="_blank">Potter DB</a><br>
+                    <strong>Univers :</strong> © J.K. Rowling & Warner Bros.
                 </p>
             </div>
         </section>
@@ -142,11 +142,11 @@ go run main.go</code></pre>
             <div class="cta-buttons">
                 <a href="/" class="cta-button primary">
                     <i class="fa-solid fa-home"></i>
-                    Home
+                    Accueil
                 </a>
                 <a href="/search" class="cta-button secondary">
                     <i class="fa-solid fa-search"></i>
-                    Search
+                    Rechercher
                 </a>
             </div>
         </section>

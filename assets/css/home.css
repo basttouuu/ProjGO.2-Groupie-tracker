@@ -218,6 +218,7 @@
     padding: 20px;
     position: relative;
     z-index: 2;
+    min-height: 180px;
 }
 
 .card-content h3 {
@@ -305,7 +306,7 @@
 
 .item-card img {
     width: 100%;
-    aspect-ratio: 2/3;
+    aspect-ratio: 3/4;
     object-fit: cover;
     border-bottom: 2px solid var(--border);
     background: var(--bg-light);
@@ -316,6 +317,10 @@
     font-size: 16px;
     color: var(--primary);
     padding: 16px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .magic-grid {
